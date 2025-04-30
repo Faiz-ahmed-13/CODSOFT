@@ -413,4 +413,82 @@ A video demonstrating data loading, training, evaluation, and result comparison 
 
 For feedback or collaboration, feel free to reach out!
 
+
+---
+
+# 📝 Task 5: Handwritten Text Generation using RNN
+
+This project implements a **character-level recurrent neural network (RNN)** to generate handwritten-like text. It is trained on sequences of pen stroke data paired with character labels to learn realistic handwriting patterns.
+
+## 📌 Project Highlights
+
+- Uses a **Bidirectional LSTM** for capturing forward and backward dependencies in handwriting patterns.
+- Trains on stroke sequences from real handwritten data.
+- Supports generation of new handwriting from any input text string.
+- Includes robust training loop with gradient clipping, dropout, and learning rate scheduling.
+- Efficient batching and padding for variable-length sequences.
+
+## 📁 Dataset
+
+The model expects a dataset in the form of a `.npz` file named:
+```
+deepwriting_training.npz
+```
+
+This file must contain:
+- `strokes`: List of stroke sequences (arrays of shape `[T, 3]` where T is the number of timesteps)
+- `char_labels`: Corresponding character indices
+- `alphabet`: List of characters used in the dataset
+
+**⚠️ Note:** You must place this file in the same directory as the script or modify the path in `load_data()`.
+
+## 🚀 How to Run
+
+1. Install required Python libraries:
+   ```bash
+   pip install torch numpy matplotlib tqdm
+   ```
+
+2. Make sure `deepwriting_training.npz` is in the same directory.
+
+3. Run the script:
+   ```bash
+   python TASK5_hw_generation_using_RNN.py
+   ```
+
+The script will:
+- Train the RNN model (with reduced epochs/sample size for testing)
+- Generate handwriting strokes for sample text like `"a"` and `"b"`
+- Visualize the output using `matplotlib`
+
+## 🧠 Model Architecture
+
+- **Embedding Layer** for characters
+- **Bidirectional LSTM** (multi-layer, with dropout)
+- Fully connected output layers producing `[dx, dy, pen]` stroke predictions
+- **MSE Loss** used for training stroke predictions
+
+## 📊 Training Results
+
+- Training is limited to small samples (500) and epochs (2) for quick testing.
+- Loss typically decreases steadily, and the model can generate visually coherent letter strokes even with minimal training.
+
+## ✍️ Output
+
+The output includes:
+- Stroke-by-stroke plots simulating how the character(s) would be written by hand
+- Can be extended to generate full sentences with longer training
+
+## 📦 Output File
+
+- Trained model weights saved as: `best_handwriting_model.pth`
+
+## ✅ Future Improvements
+
+- Use more text samples during generation
+- Train on full dataset with more epochs
+- Add GUI or interface for live handwriting generation
+- Improve stroke rendering for smoother visuals
+- -increase samples and epochs 
+
 ---
